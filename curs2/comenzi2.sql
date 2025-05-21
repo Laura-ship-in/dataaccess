@@ -27,3 +27,16 @@ SELECT * FROM `student` ORDER BY `student`.`nume`, prenume DESC;
 SELECT * FROM `student` ORDER BY `nume` ASC LIMIT 5 OFFSET 10;
 SELECT an, COUNT(id) as nr_student from `student` GROUP BY an;
 SELECT an, COUNT(id) as nr_student from `student` GROUP BY an HAVING nr_student =9;
+
+SELECT * FROM student CROSS JOIN note;
+SELECT s.id FROM student AS s CROSS JOIN note AS n CROSS JOIN cursuri AS c; 
+SELECT s.nume, s. prenume, n.valoare FROM student AS s INNER JOIN note AS n ON s.id = n.id_student WHERE s.id = 101;
+SELECT s.nume, s. prenume, n.valoare, c.titlu_curs FROM student AS s INNER JOIN note AS n ON s.id = n.id_student INNER JOIN cursuri AS c ON c.id_curs = n.id_curs WHERE s.id = 101;
+
+-- legatura dintre doua tabele 
+SELECT * FROM `cursuri` WHERE id_curs NOT IN (SELECT id_curs FROM didactic); 
+
+(SELECT nume, prenume, (CASE WHEN id > 20 THEN 'student' END) AS type FROM student WHERE prenume like 'ion%') UNION (SELECT nume, prenume, (CASE WHEN id <= 20 then 'profesor' END) AS type FROM profesor WHERE prenume LIKE 'ion%');
+
+-- aflam media
+SELECT s.nume, s.prenume, FORMAT(avg(n.valoare),1) FROM student s LEFT JOIN note n ON s.id = n.id_student WHERE s.id =101;
