@@ -20,6 +20,7 @@ const findAll = (callback) => {
                 datanastere: row.datanastere,
                 telefon: row.telefon,
                 dataadaugare: row.dataadaugare,
+                cnp: row.cnp,
                 actiune: "",
             };
             users.push(user);
@@ -43,6 +44,7 @@ const findOne = (userId, callback) => {
             email: row.email,
             datanastere: row.datanastere,
             telefon: row.telefon,
+            cnp: row.cnp,
             //dataadaugare: row.dataadaugare,
         };
         callback(null, user);
@@ -64,8 +66,8 @@ const create = (user, callback) => {
 exports.create = create;
 // update user
 const update = (user, callback) => {
-    const queryString = `UPDATE jsusers SET nume=?, prenume=? WHERE id=?`;
-    db_1.db.query(queryString, [user.nume, user.prenume, user.id], (err, result) => {
+    const queryString = `UPDATE jsusers SET nume=?, prenume=?, cnp =?, telefon = ?, WHERE id=?`;
+    db_1.db.query(queryString, [user.nume, user.prenume, user.cnp, user.telefon, user.id], (err, result) => {
         if (err) {
             callback(err);
         }
