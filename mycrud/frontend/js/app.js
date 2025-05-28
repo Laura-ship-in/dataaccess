@@ -52,9 +52,13 @@ $(document).ready(function ($) {
                 { "data": "nume" },
                 { "data": "prenume" },
                 { "data": "email" },
-                { "data": "cnp"},
+                { "data": "cnp" },
+                { "data": "poza",
+                    render:function (data) {
+                        return `<img src="../backend/dist/uploads/ + data + " width="50" height="50" class="img-thumbnail" />`;
+                    }
+                },
                 { "data": "telefon" },
-                ,
                 {
                     "data": "datanastere",
                     render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSSZ','YYYY-MM-DD' )
@@ -104,6 +108,20 @@ $(document).ready(function ($) {
                 $('#age').val(datan);
                 $('#phone').val(res.data.telefon);
                 $('#cnp').val(res.data.cnp);
+                // $('#poza').val(res.data.poza);
+                if( res.data.poza) {
+                    $('#myphoto').css(
+                        'display', 'inline'
+                    );
+                    $('#myphoto').attr("src", "../backend/dist/uploads/" + res.data.poza);
+                    $('#myphoto').attr("src", "../backend/dist/uploads/" + res.data.poza);
+                }
+                else {
+                    $('#myphoto').css(
+                        'display', 'none'
+                    );
+                }
+                
 
 
 
@@ -146,6 +164,7 @@ $(document).ready(function ($) {
         else {
             idValue
         }
+        var formData = new FormData(0);
         // alert(method);
         // alert(urlReq);
         $.ajax({

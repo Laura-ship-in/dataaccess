@@ -18,9 +18,10 @@ const findAll = (callback) => {
                 prenume: row.prenume,
                 email: row.email,
                 datanastere: row.datanastere,
+                cnp: row.cnp,
+                poza: row.poza,
                 telefon: row.telefon,
                 dataadaugare: row.dataadaugare,
-                cnp: row.cnp,
                 actiune: "",
             };
             users.push(user);
@@ -43,8 +44,9 @@ const findOne = (userId, callback) => {
             prenume: row.prenume,
             email: row.email,
             datanastere: row.datanastere,
-            telefon: row.telefon,
             cnp: row.cnp,
+            poza: row.poza,
+            telefon: row.telefon,
             //dataadaugare: row.dataadaugare,
         };
         callback(null, user);
@@ -53,9 +55,9 @@ const findOne = (userId, callback) => {
 exports.findOne = findOne;
 // create user
 const create = (user, callback) => {
-    const queryString = "INSERT INTO jsusers (nume, prenume, email, datanastere, cnp, telefon) VALUES (?, ?, ?, ?, ?, ?)";
+    const queryString = "INSERT INTO jsusers (nume, prenume, email, datanastere,cnp, poza, telefon) VALUES (?, ?, ?, ?, ?, ?, ?)";
     console.log(user);
-    db_1.db.query(queryString, [user.nume, user.prenume, user.email, user.datanastere, , user.cnp, user.telefon], (err, result) => {
+    db_1.db.query(queryString, [user.nume, user.prenume, user.email, user.datanastere, user.cnp, user.poza, user.telefon], (err, result) => {
         if (err) {
             callback(err);
         }
@@ -66,8 +68,8 @@ const create = (user, callback) => {
 exports.create = create;
 // update user
 const update = (user, callback) => {
-    const queryString = `UPDATE jsusers SET nume=?, prenume=?, cnp =?, telefon = ?, WHERE id=?`;
-    db_1.db.query(queryString, [user.nume, user.prenume, user.cnp, user.telefon, user.id], (err, result) => {
+    const queryString = `UPDATE jsusers SET nume=?, prenume=? WHERE id=?`;
+    db_1.db.query(queryString, [user.nume, user.prenume, user.id], (err, result) => {
         if (err) {
             callback(err);
         }

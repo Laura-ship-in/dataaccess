@@ -17,9 +17,10 @@ export const findAll = (callback: Function) => {
         prenume: row.prenume,
         email: row.email,
         datanastere: row.datanastere,
+        cnp: row.cnp,
+        poza:row.poza,
         telefon: row.telefon,
         dataadaugare: row.dataadaugare,
-        cnp: row.cnp,
         actiune: "",
       };
       users.push(user);
@@ -42,8 +43,9 @@ export const findOne = (userId: number, callback: Function) => {
       prenume: row.prenume,
       email: row.email,
       datanastere: row.datanastere,
+      cnp:row.cnp,
+      poza: row.poza,
       telefon: row.telefon,
-      cnp: row.cnp,
       //dataadaugare: row.dataadaugare,
     };
     callback(null, user);
@@ -52,11 +54,11 @@ export const findOne = (userId: number, callback: Function) => {
 // create user
 export const create = (user: User, callback: Function) => {
   const queryString =
-    "INSERT INTO jsusers (nume, prenume, email, datanastere, cnp, telefon) VALUES (?, ?, ?, ?, ?, ?)";
+    "INSERT INTO jsusers (nume, prenume, email, datanastere,cnp, poza, telefon) VALUES (?, ?, ?, ?, ?, ?, ?)";
     console.log(user);
   db.query(
     queryString,
-    [user.nume, user.prenume, user.email, user.datanastere, , user.cnp, user.telefon],
+    [user.nume, user.prenume, user.email, user.datanastere,user.cnp, user.poza, user.telefon],
     (err, result) => {
       if (err) {
         callback(err);
@@ -72,9 +74,9 @@ export const create = (user: User, callback: Function) => {
 
 // update user
 export const update = (user: User, callback: Function) => {
-  const queryString = `UPDATE jsusers SET nume=?, prenume=?, cnp =?, telefon = ?, WHERE id=?`;
+  const queryString = `UPDATE jsusers SET nume=?, prenume=?, cnp=?, poza=?, telefon=?, WHERE id=?`;
 
-  db.query(queryString, [user.nume, user.prenume, user.cnp, user.telefon, user.id], (err, result) => {
+  db.query(queryString, [user.nume, user.prenume, user.cnp, user.poza, user.telefon,  user.id], (err, result) => {
     if (err) {
       callback(err);
     }

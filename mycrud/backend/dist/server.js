@@ -47,13 +47,14 @@ const app = (0, express_1.default)();
 app.use(express_1.default.urlencoded({ extended: true }));
 const port = process.env.PORT;
 app.use((0, cors_1.default)());
-// CORS
-// app.use((req, res, next) => {
-//   res.append('Access-Control-Allow-Origin', ['*']);
-//   res.append('Access-Control-Allow-Methods','GET,PUT,POST,DELETE');
-//   res.append('Access-Control-Allow-Headers', 'Content-Type');
-//    next();
-// });
+app.use(fileUpload()),
+    // CORS
+    app.use((req, res, next) => {
+        res.append('Access-Control-Allow-Origin', ['*']);
+        res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.append('Access-Control-Allow-Headers', 'Content-Type');
+        next();
+    });
 app.use(bodyParser.json());
 app.use("/users", userRouter_1.userRouter);
 app.get('/', (req, res) => {
